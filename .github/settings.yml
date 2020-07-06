@@ -1,0 +1,6 @@
+_extends: .github
+repository:
+  name: core
+  description: core logic for form8ion tools
+  homepage: 'https://npm.im/@form8ion/core'
+  private: false
