@@ -1,3 +1,5 @@
-// remark-usage-ignore-next
-/* eslint-disable-next-line no-unused-vars */
-import core from './lib/index.cjs';
+import {fileExists} from './lib/index.cjs';
+
+(async () => {
+  await fileExists('path/to/some/expected/file');
+})();

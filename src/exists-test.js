@@ -16,10 +16,11 @@ suite('exists', () => {
 
   teardown(() => sandbox.restore());
 
-  test('that `true` is returned if the `stat` promise resolves', async () => {
-    fs.stat.withArgs(path).resolves();
+  test('that the file stats are returned if the `stat` promise resolves', async () => {
+    const stats = any.simpleObject();
+    fs.stat.withArgs(path).resolves(stats);
 
-    assert.isTrue(await exists(path));
+    assert.equal(await exists(path), stats);
   });
 
   test('that `false` is returned if `stat` throws a not-found error', async () => {

@@ -37,7 +37,11 @@ $ npm install @form8ion/core --save-prod
 ### Example
 
 ```javascript
-import core from '@form8ion/core';
+import {fileExists} from '@form8ion/core';
+
+(async () => {
+  await fileExists('path/to/some/expected/file');
+})();
 ```
 
 ## Contributing
