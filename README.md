@@ -37,8 +37,19 @@ $ npm install @form8ion/core --save-prod
 ### Example
 
 ```javascript
-import core from '@form8ion/core';
+import {fileExists} from '@form8ion/core';
+
+(async () => {
+  await fileExists('path/to/some/expected/file');
+})();
 ```
+
+### API
+
+#### `fileExists`
+
+wrapper around [`fs.promises.stat()`](https://nodejs.org/api/fs.html#fs_fspromises_stat_path_options)
+to determine whether a file exists at a given path.
 
 ## Contributing
 
