@@ -1,6 +1,6 @@
 import {basename} from 'path';
 import spdxLicenseList from 'spdx-license-list/simple';
-import {prompt, questionHasDecision} from '@form8ion/overridable-prompts';
+import {questionHasDecision} from '@form8ion/overridable-prompts';
 import {questionNames} from './question-names';
 import {
   copyrightInformationShouldBeRequested,
@@ -40,8 +40,8 @@ function includeLicenseQuestions(copyrightHolder) {
   ];
 }
 
-export function promptForBaseDetails(projectRoot, copyrightHolder, decisions) {
-  return prompt([
+export function questionsForBaseDetails(projectRoot, copyrightHolder, decisions) {
+  return [
     {
       name: questionNames.PROJECT_NAME,
       message: 'What is the name of this project?',
@@ -56,5 +56,5 @@ export function promptForBaseDetails(projectRoot, copyrightHolder, decisions) {
       default: 'Private'
     },
     ...!questionHasDecision(questionNames.VISIBILITY, decisions) ? includeLicenseQuestions(copyrightHolder) : []
-  ], decisions);
+  ];
 }

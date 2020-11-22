@@ -6,19 +6,17 @@ import {assert} from 'chai';
 import sinon from 'sinon';
 import {questionNames as coreQuestionNames} from './question-names';
 import * as conditionals from './conditionals';
-import {promptForBaseDetails} from './questions';
+import {questionsForBaseDetails} from './questions';
 
 suite('project scaffolder prompts', () => {
   let sandbox;
   const projectPath = any.string();
-  const answers = any.simpleObject();
   const decisions = any.simpleObject();
 
   setup(() => {
     sandbox = sinon.createSandbox();
 
     sandbox.stub(path, 'basename');
-    sandbox.stub(prompts, 'prompt');
     sandbox.stub(prompts, 'questionHasDecision');
 
     prompts.questionHasDecision.returns(false);
@@ -31,8 +29,10 @@ suite('project scaffolder prompts', () => {
       const directoryName = any.string();
       const copyrightHolder = any.string();
       path.basename.withArgs(projectPath).returns(directoryName);
-      prompts.prompt
-        .withArgs([
+
+      assert.deepEqual(
+        await questionsForBaseDetails(projectPath, copyrightHolder, decisions),
+        [
           {name: coreQuestionNames.PROJECT_NAME, message: 'What is the name of this project?', default: directoryName},
           {
             name: coreQuestionNames.DESCRIPTION,
@@ -72,10 +72,8 @@ suite('project scaffolder prompts', () => {
             when: conditionals.copyrightInformationShouldBeRequested,
             default: new Date().getFullYear()
           }
-        ], decisions)
-        .resolves(answers);
-
-      assert.equal(await promptForBaseDetails(projectPath, copyrightHolder, decisions), answers);
+        ]
+      );
     });
 
     test('that license questions are skipped when a visibility decision is provided', async () => {
@@ -83,8 +81,10 @@ suite('project scaffolder prompts', () => {
       const copyrightHolder = any.string();
       path.basename.withArgs(projectPath).returns(directoryName);
       prompts.questionHasDecision.withArgs(coreQuestionNames.VISIBILITY, decisions).returns(true);
-      prompts.prompt
-        .withArgs([
+
+      assert.deepEqual(
+        await questionsForBaseDetails(projectPath, copyrightHolder, decisions),
+        [
           {name: coreQuestionNames.PROJECT_NAME, message: 'What is the name of this project?', default: directoryName},
           {
             name: coreQuestionNames.DESCRIPTION,
@@ -97,10 +97,8 @@ suite('project scaffolder prompts', () => {
             choices: ['Public', 'Private'],
             default: 'Private'
           }
-        ], decisions)
-        .resolves(answers);
-
-      assert.equal(await promptForBaseDetails(projectPath, copyrightHolder, decisions), answers);
+        ]
+      );
     });
   });
 });
