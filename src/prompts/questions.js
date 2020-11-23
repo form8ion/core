@@ -40,12 +40,12 @@ function includeLicenseQuestions(copyrightHolder) {
   ];
 }
 
-export function questionsForBaseDetails(projectRoot, copyrightHolder, decisions) {
+export function questionsForBaseDetails(decisions, projectRoot, copyrightHolder) {
   return [
     {
       name: questionNames.PROJECT_NAME,
       message: 'What is the name of this project?',
-      default: basename(projectRoot)
+      default: projectRoot && basename(projectRoot)
     },
     {name: questionNames.DESCRIPTION, message: 'How should this project be described?'},
     {

@@ -31,7 +31,7 @@ suite('project scaffolder prompts', () => {
       path.basename.withArgs(projectPath).returns(directoryName);
 
       assert.deepEqual(
-        await questionsForBaseDetails(projectPath, copyrightHolder, decisions),
+        await questionsForBaseDetails(decisions, projectPath, copyrightHolder),
         [
           {name: coreQuestionNames.PROJECT_NAME, message: 'What is the name of this project?', default: directoryName},
           {
@@ -83,9 +83,35 @@ suite('project scaffolder prompts', () => {
       prompts.questionHasDecision.withArgs(coreQuestionNames.VISIBILITY, decisions).returns(true);
 
       assert.deepEqual(
-        await questionsForBaseDetails(projectPath, copyrightHolder, decisions),
+        await questionsForBaseDetails(decisions, projectPath, copyrightHolder),
         [
           {name: coreQuestionNames.PROJECT_NAME, message: 'What is the name of this project?', default: directoryName},
+          {
+            name: coreQuestionNames.DESCRIPTION,
+            message: 'How should this project be described?'
+          },
+          {
+            name: coreQuestionNames.VISIBILITY,
+            message: 'Should this project be public or private?',
+            type: 'list',
+            choices: ['Public', 'Private'],
+            default: 'Private'
+          }
+        ]
+      );
+    });
+
+    test('that projectPath is optional', async () => {
+      const copyrightHolder = any.string();
+      path.basename
+        .withArgs(undefined)
+        .throws(new Error('The "path" argument must be of type string. Received undefined'));
+      prompts.questionHasDecision.withArgs(coreQuestionNames.VISIBILITY, decisions).returns(true);
+
+      assert.deepEqual(
+        await questionsForBaseDetails(decisions, undefined, copyrightHolder),
+        [
+          {name: coreQuestionNames.PROJECT_NAME, message: 'What is the name of this project?', default: undefined},
           {
             name: coreQuestionNames.DESCRIPTION,
             message: 'How should this project be described?'
