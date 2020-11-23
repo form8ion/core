@@ -8,6 +8,8 @@ import {
 } from './predicates';
 
 function includeLicenseQuestions(decisions, copyrightHolder) {
+  const copyrightInfoPredicate = copyrightInformationShouldBeRequested(decisions);
+
   return [
     {
       name: questionNames.UNLICENSED,
@@ -27,13 +29,13 @@ function includeLicenseQuestions(decisions, copyrightHolder) {
     {
       name: questionNames.COPYRIGHT_HOLDER,
       message: 'Who is the copyright holder of this project?',
-      when: copyrightInformationShouldBeRequested,
+      when: copyrightInfoPredicate,
       default: copyrightHolder
     },
     {
       name: questionNames.COPYRIGHT_YEAR,
       message: 'What is the copyright year?',
-      when: copyrightInformationShouldBeRequested,
+      when: copyrightInfoPredicate,
       default: new Date().getFullYear()
     }
   ];

@@ -13,17 +13,19 @@ suite('project scaffolder prompts', () => {
   const decisions = any.simpleObject();
   const unlicensedConfirmationPredicate = () => undefined;
   const licenseChoicesPredicate = () => undefined;
+  const copyrightInfoPredicate = () => undefined;
 
   setup(() => {
     sandbox = sinon.createSandbox();
 
     sandbox.stub(path, 'basename');
-    // sandbox.stub(predicates, 'copyrightInformationShouldBeRequested');
+    sandbox.stub(predicates, 'copyrightInformationShouldBeRequested');
     sandbox.stub(predicates, 'licenseChoicesShouldBePresented');
     sandbox.stub(predicates, 'unlicensedConfirmationShouldBePresented');
 
     predicates.unlicensedConfirmationShouldBePresented.withArgs(decisions).returns(unlicensedConfirmationPredicate);
     predicates.licenseChoicesShouldBePresented.withArgs(decisions).returns(licenseChoicesPredicate);
+    predicates.copyrightInformationShouldBeRequested.withArgs(decisions).returns(copyrightInfoPredicate);
   });
 
   teardown(() => sandbox.restore());
@@ -67,13 +69,13 @@ suite('project scaffolder prompts', () => {
           {
             name: coreQuestionNames.COPYRIGHT_HOLDER,
             message: 'Who is the copyright holder of this project?',
-            when: predicates.copyrightInformationShouldBeRequested,
+            when: copyrightInfoPredicate,
             default: copyrightHolder
           },
           {
             name: coreQuestionNames.COPYRIGHT_YEAR,
             message: 'What is the copyright year?',
-            when: predicates.copyrightInformationShouldBeRequested,
+            when: copyrightInfoPredicate,
             default: new Date().getFullYear()
           }
         ]
@@ -119,13 +121,13 @@ suite('project scaffolder prompts', () => {
           {
             name: coreQuestionNames.COPYRIGHT_HOLDER,
             message: 'Who is the copyright holder of this project?',
-            when: predicates.copyrightInformationShouldBeRequested,
+            when: copyrightInfoPredicate,
             default: copyrightHolder
           },
           {
             name: coreQuestionNames.COPYRIGHT_YEAR,
             message: 'What is the copyright year?',
-            when: predicates.copyrightInformationShouldBeRequested,
+            when: copyrightInfoPredicate,
             default: new Date().getFullYear()
           }
         ]
