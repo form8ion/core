@@ -1,6 +1,5 @@
 import {basename} from 'path';
 import spdxLicenseList from 'spdx-license-list/simple';
-import {questionHasDecision} from '@form8ion/overridable-prompts';
 import {questionNames} from './question-names';
 import {
   copyrightInformationShouldBeRequested,
@@ -55,6 +54,6 @@ export function questionsForBaseDetails(decisions, projectRoot, copyrightHolder)
       choices: ['Public', 'Private'],
       default: 'Private'
     },
-    ...!questionHasDecision(questionNames.VISIBILITY, decisions) ? includeLicenseQuestions(copyrightHolder) : []
+    ...includeLicenseQuestions(copyrightHolder)
   ];
 }
