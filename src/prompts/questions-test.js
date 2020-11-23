@@ -4,18 +4,26 @@ import any from '@travi/any';
 import {assert} from 'chai';
 import sinon from 'sinon';
 import {questionNames as coreQuestionNames} from './question-names';
-import * as conditionals from './predicates';
+import * as predicates from './predicates';
 import {questionsForBaseDetails} from './questions';
 
 suite('project scaffolder prompts', () => {
   let sandbox;
   const projectPath = any.string();
   const decisions = any.simpleObject();
+  const unlicensedConfirmationPredicate = () => undefined;
+  const licenseChoicesPredicate = () => undefined;
 
   setup(() => {
     sandbox = sinon.createSandbox();
 
     sandbox.stub(path, 'basename');
+    // sandbox.stub(predicates, 'copyrightInformationShouldBeRequested');
+    sandbox.stub(predicates, 'licenseChoicesShouldBePresented');
+    sandbox.stub(predicates, 'unlicensedConfirmationShouldBePresented');
+
+    predicates.unlicensedConfirmationShouldBePresented.withArgs(decisions).returns(unlicensedConfirmationPredicate);
+    predicates.licenseChoicesShouldBePresented.withArgs(decisions).returns(licenseChoicesPredicate);
   });
 
   teardown(() => sandbox.restore());
@@ -45,27 +53,27 @@ suite('project scaffolder prompts', () => {
             name: coreQuestionNames.UNLICENSED,
             message: 'Since this is a private project, should it be unlicensed?',
             type: 'confirm',
-            when: conditionals.unlicensedConfirmationShouldBePresented,
+            when: unlicensedConfirmationPredicate,
             default: true
           },
           {
             name: coreQuestionNames.LICENSE,
             message: 'How should this this project be licensed (https://choosealicense.com/)?',
             type: 'list',
-            when: conditionals.licenseChoicesShouldBePresented,
+            when: licenseChoicesPredicate,
             choices: Array.from(spdxLicenseList),
             default: 'MIT'
           },
           {
             name: coreQuestionNames.COPYRIGHT_HOLDER,
             message: 'Who is the copyright holder of this project?',
-            when: conditionals.copyrightInformationShouldBeRequested,
+            when: predicates.copyrightInformationShouldBeRequested,
             default: copyrightHolder
           },
           {
             name: coreQuestionNames.COPYRIGHT_YEAR,
             message: 'What is the copyright year?',
-            when: conditionals.copyrightInformationShouldBeRequested,
+            when: predicates.copyrightInformationShouldBeRequested,
             default: new Date().getFullYear()
           }
         ]
@@ -97,27 +105,27 @@ suite('project scaffolder prompts', () => {
             name: coreQuestionNames.UNLICENSED,
             message: 'Since this is a private project, should it be unlicensed?',
             type: 'confirm',
-            when: conditionals.unlicensedConfirmationShouldBePresented,
+            when: unlicensedConfirmationPredicate,
             default: true
           },
           {
             name: coreQuestionNames.LICENSE,
             message: 'How should this this project be licensed (https://choosealicense.com/)?',
             type: 'list',
-            when: conditionals.licenseChoicesShouldBePresented,
+            when: licenseChoicesPredicate,
             choices: Array.from(spdxLicenseList),
             default: 'MIT'
           },
           {
             name: coreQuestionNames.COPYRIGHT_HOLDER,
             message: 'Who is the copyright holder of this project?',
-            when: conditionals.copyrightInformationShouldBeRequested,
+            when: predicates.copyrightInformationShouldBeRequested,
             default: copyrightHolder
           },
           {
             name: coreQuestionNames.COPYRIGHT_YEAR,
             message: 'What is the copyright year?',
-            when: conditionals.copyrightInformationShouldBeRequested,
+            when: predicates.copyrightInformationShouldBeRequested,
             default: new Date().getFullYear()
           }
         ]
