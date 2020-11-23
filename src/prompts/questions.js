@@ -5,7 +5,7 @@ import {
   copyrightInformationShouldBeRequested,
   licenseChoicesShouldBePresented,
   unlicensedConfirmationShouldBePresented
-} from './conditionals';
+} from './predicates';
 
 function includeLicenseQuestions(copyrightHolder) {
   return [

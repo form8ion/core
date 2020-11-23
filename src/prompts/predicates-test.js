@@ -5,7 +5,7 @@ import {
   copyrightInformationShouldBeRequested,
   licenseChoicesShouldBePresented,
   unlicensedConfirmationShouldBePresented
-} from './conditionals';
+} from './predicates';
 
 suite('prompt conditionals', () => {
   suite('unlicensed confirmation', () => {

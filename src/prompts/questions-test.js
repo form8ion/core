@@ -4,7 +4,7 @@ import any from '@travi/any';
 import {assert} from 'chai';
 import sinon from 'sinon';
 import {questionNames as coreQuestionNames} from './question-names';
-import * as conditionals from './conditionals';
+import * as conditionals from './predicates';
 import {questionsForBaseDetails} from './questions';
 
 suite('project scaffolder prompts', () => {
