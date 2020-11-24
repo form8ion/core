@@ -1,40 +1,41 @@
 import {basename} from 'path';
 import spdxLicenseList from 'spdx-license-list/simple';
-import {questionHasDecision} from '@form8ion/overridable-prompts';
 import {questionNames} from './question-names';
 import {
   copyrightInformationShouldBeRequested,
   licenseChoicesShouldBePresented,
   unlicensedConfirmationShouldBePresented
-} from './conditionals';
+} from './predicates';
 
-function includeLicenseQuestions(copyrightHolder) {
+function includeLicenseQuestions(decisions, copyrightHolder) {
+  const copyrightInfoPredicate = copyrightInformationShouldBeRequested(decisions);
+
   return [
     {
       name: questionNames.UNLICENSED,
       message: 'Since this is a private project, should it be unlicensed?',
       type: 'confirm',
-      when: unlicensedConfirmationShouldBePresented,
+      when: unlicensedConfirmationShouldBePresented(decisions),
       default: true
     },
     {
       name: questionNames.LICENSE,
       message: 'How should this this project be licensed (https://choosealicense.com/)?',
       type: 'list',
-      when: licenseChoicesShouldBePresented,
+      when: licenseChoicesShouldBePresented(decisions),
       choices: Array.from(spdxLicenseList),
       default: 'MIT'
     },
     {
       name: questionNames.COPYRIGHT_HOLDER,
       message: 'Who is the copyright holder of this project?',
-      when: copyrightInformationShouldBeRequested,
+      when: copyrightInfoPredicate,
       default: copyrightHolder
     },
     {
       name: questionNames.COPYRIGHT_YEAR,
       message: 'What is the copyright year?',
-      when: copyrightInformationShouldBeRequested,
+      when: copyrightInfoPredicate,
       default: new Date().getFullYear()
     }
   ];
@@ -55,6 +56,6 @@ export function questionsForBaseDetails(decisions, projectRoot, copyrightHolder)
       choices: ['Public', 'Private'],
       default: 'Private'
     },
-    ...!questionHasDecision(questionNames.VISIBILITY, decisions) ? includeLicenseQuestions(copyrightHolder) : []
+    ...includeLicenseQuestions(decisions, copyrightHolder)
   ];
 }
