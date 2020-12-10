@@ -1,25 +1,13 @@
 import {questionNames} from './question-names';
 
-export function unlicensedConfirmationShouldBePresented(decisions) {
-  return answers => {
-    const values = {...decisions, ...answers};
-
-    return 'Private' === values[questionNames.VISIBILITY];
-  };
+export function unlicensedConfirmationShouldBePresented(answers) {
+  return 'Private' === answers[questionNames.VISIBILITY];
 }
 
-export function licenseChoicesShouldBePresented(decisions) {
-  return answers => {
-    const values = {...decisions, ...answers};
-
-    return 'Public' === values[questionNames.VISIBILITY] || !values[questionNames.UNLICENSED];
-  };
+export function licenseChoicesShouldBePresented(answers) {
+  return 'Public' === answers[questionNames.VISIBILITY] || !answers[questionNames.UNLICENSED];
 }
 
-export function copyrightInformationShouldBeRequested(decisions) {
-  return answers => {
-    const values = {...decisions, ...answers};
-
-    return !!values[questionNames.LICENSE];
-  };
+export function copyrightInformationShouldBeRequested(answers) {
+  return !!answers[questionNames.LICENSE];
 }

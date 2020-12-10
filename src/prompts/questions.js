@@ -7,35 +7,33 @@ import {
   unlicensedConfirmationShouldBePresented
 } from './predicates';
 
-function includeLicenseQuestions(decisions, copyrightHolder) {
-  const copyrightInfoPredicate = copyrightInformationShouldBeRequested(decisions);
-
+function includeLicenseQuestions(copyrightHolder) {
   return [
     {
       name: questionNames.UNLICENSED,
       message: 'Since this is a private project, should it be unlicensed?',
       type: 'confirm',
-      when: unlicensedConfirmationShouldBePresented(decisions),
+      when: unlicensedConfirmationShouldBePresented,
       default: true
     },
     {
       name: questionNames.LICENSE,
       message: 'How should this this project be licensed (https://choosealicense.com/)?',
       type: 'list',
-      when: licenseChoicesShouldBePresented(decisions),
+      when: licenseChoicesShouldBePresented,
       choices: Array.from(spdxLicenseList),
       default: 'MIT'
     },
     {
       name: questionNames.COPYRIGHT_HOLDER,
       message: 'Who is the copyright holder of this project?',
-      when: copyrightInfoPredicate,
+      when: copyrightInformationShouldBeRequested,
       default: copyrightHolder
     },
     {
       name: questionNames.COPYRIGHT_YEAR,
       message: 'What is the copyright year?',
-      when: copyrightInfoPredicate,
+      when: copyrightInformationShouldBeRequested,
       default: new Date().getFullYear()
     }
   ];
@@ -56,6 +54,6 @@ export function questionsForBaseDetails(decisions, projectRoot, copyrightHolder)
       choices: ['Public', 'Private'],
       default: 'Private'
     },
-    ...includeLicenseQuestions(decisions, copyrightHolder)
+    ...includeLicenseQuestions(copyrightHolder)
   ];
 }
