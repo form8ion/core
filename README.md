@@ -14,6 +14,9 @@ core logic for [form8ion](https://github.com/form8ion/) tools
 * [Usage](#usage)
   * [Installation](#installation)
   * [Example](#example)
+  * [API](#api)
+    * [`fileExists`](#fileexists)
+    * [`directoryExists`](#directoryexists)
 * [Contributing](#contributing)
   * [Dependencies](#dependencies)
   * [Verification](#verification)
@@ -37,10 +40,11 @@ $ npm install @form8ion/core --save-prod
 ### Example
 
 ```javascript
-import {fileExists} from '@form8ion/core';
+import {directoryExists, fileExists} from '@form8ion/core';
 
 (async () => {
   await fileExists('path/to/some/expected/file');
+  await directoryExists('path/to/some/expected/directory');
 })();
 ```
 
@@ -50,6 +54,11 @@ import {fileExists} from '@form8ion/core';
 
 wrapper around [`fs.promises.stat()`](https://nodejs.org/api/fs.html#fs_fspromises_stat_path_options)
 to determine whether a file exists at a given path.
+
+#### `directoryExists`
+
+wrapper around [`fs.promises.stat()`](https://nodejs.org/api/fs.html#fs_fspromises_stat_path_options)
+to determine whether a directory exists at a given path.
 
 ## Contributing
 
