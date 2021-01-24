@@ -76,6 +76,6 @@
     "sinon": "9.2.4"
   },
   "dependencies": {
-    "spdx-license-list": "6.3.0"
+    "spdx-license-list": "6.4.0"
   }
 }
