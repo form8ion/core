@@ -60,6 +60,32 @@ to determine whether a file exists at a given path.
 wrapper around [`fs.promises.stat()`](https://nodejs.org/api/fs.html#fs_fspromises_stat_path_options)
 to determine whether a directory exists at a given path.
 
+#### `applyEnhancers`
+
+Processes scaffolding results by applying a list of enhancers (lifters) as a
+chain, returning the enhanced results.
+Each enhancer is applied conditionally, based on the results of the predicate
+supplied with each enhancer.
+
+Takes a single options object as an argument, containing:
+
+##### `results` __object__ (_required_)
+
+Result object from scaffolder execution
+
+##### `enhancers` __array__ (_required_)
+
+List of plugins with `lift` and `test` properties for processing the provided
+`results`.
+The `test` property is a predicate that determines if the enhancer is
+applicable to the current project.
+The `lift` property processes the `results` if the `test` predicate returns
+`true`.
+
+##### `options` __object__ (_required_)
+
+Options to be provided to the `test` and `lift` functions of each enhancer.
+
 ## Contributing
 
 <!--contribution-badges start -->
