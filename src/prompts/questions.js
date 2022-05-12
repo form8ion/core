@@ -1,5 +1,6 @@
 import {basename} from 'path';
-import spdxLicenseList from 'spdx-license-list/simple';
+/* eslint-disable-next-line import/extensions -- needed for the esm bundle */
+import spdxLicenseList from 'spdx-license-list/simple.js';
 import {questionNames} from './question-names';
 import {
   copyrightInformationShouldBeRequested,
