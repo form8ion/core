@@ -17,6 +17,17 @@ core logic for [form8ion](https://github.com/form8ion/) tools
   * [API](#api)
     * [`fileExists`](#fileexists)
     * [`directoryExists`](#directoryexists)
+    * [`applyEnhancers`](#applyenhancers)
+      * [`results` __object__ (_required_)](#results-object-required)
+      * [`enhancers` __array__ (_required_)](#enhancers-array-required)
+      * [`options` __object__ (_required_)](#options-object-required)
+    * [`writeConfigFile`](#writeconfigfile)
+      * [`path` __string__ (_required_)](#path-string-required)
+      * [`name` __string__ (_required_)](#name-string-required)
+      * [`config` __object__ (_required_)](#config-object-required)
+      * [`format` __string__ (_required_)](#format-string-required)
+  * [Constants](#constants)
+    * [`fileTypes`](#filetypes)
 * [Contributing](#contributing)
   * [Dependencies](#dependencies)
   * [Verification](#verification)
@@ -85,6 +96,37 @@ The `lift` property processes the `results` if the `test` predicate returns
 ##### `options` __object__ (_required_)
 
 Options to be provided to the `test` and `lift` functions of each enhancer.
+
+#### `writeConfigFile`
+
+Writes a config file to the file system in the chosen format
+
+Takes a single options object as an argument, containing:
+
+##### `path` __string__ (_required_)
+
+Path to the folder (without a trailing slash) that will contain the file to be
+written
+
+##### `name` __string__ (_required_)
+
+Name of the file (without an extension)
+
+##### `config` __object__ (_required_)
+
+The config details to be written to the file
+
+##### `format` __string__ (_required_)
+
+The format for the config file to be written in. The formats from the
+[`fileTypes` constants](#filetypes) that are currently supported include
+`filetypes.JSON`. An error is thrown for unsupported formats.
+
+### Constants
+
+#### `fileTypes`
+
+Constants defined to describe file types used in various form8ion tools
 
 ## Contributing
 
