@@ -120,7 +120,9 @@ The config details to be written to the file
 
 The format for the config file to be written in. The formats from the
 [`fileTypes` constants](#filetypes) that are currently supported include
-`filetypes.JSON`. An error is thrown for unsupported formats.
+`fileTypes.JSON` and `fileTypes.YAML`.
+
+An error is thrown for unsupported formats.
 
 ### Constants
 

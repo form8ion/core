@@ -1,10 +1,11 @@
 import {promises as fs} from 'fs';
+import {dump} from 'js-yaml';
 
 import any from '@travi/any';
 import {assert} from 'chai';
 import sinon from 'sinon';
 
-import {fileTypes} from './file-types';
+import {fileTypeExtensions, fileTypes} from './file-types';
 import {write} from './config-file';
 
 suite('config file', () => {
@@ -36,7 +37,19 @@ suite('config file', () => {
 
       await write({format: fileTypes.JSON, config, path: filePath, name: fileName});
 
-      assert.calledWith(fs.writeFile, `${filePath}/${fileName}.json`, JSON.stringify(config, null, 2));
+      assert.calledWith(
+        fs.writeFile,
+        `${filePath}/${fileName}.${fileTypeExtensions[fileTypes.JSON]}`,
+        JSON.stringify(config, null, 2)
+      );
+    });
+
+    test('that a yaml file is written when the YAML file type is chosen', async () => {
+      const config = any.simpleObject();
+
+      await write({format: fileTypes.YAML, config, path: filePath, name: fileName});
+
+      assert.calledWith(fs.writeFile, `${filePath}/${fileName}.${fileTypeExtensions[fileTypes.YAML]}`, dump(config));
     });
   });
 });
