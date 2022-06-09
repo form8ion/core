@@ -82,6 +82,6 @@
   "dependencies": {
     "@travi/cli-messages": "^1.0.5",
     "deepmerge": "^4.2.2",
-    "spdx-license-list": "6.5.0"
+    "spdx-license-list": "6.6.0"
   }
 }
