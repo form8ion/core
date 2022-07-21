@@ -9,7 +9,7 @@ export default {
     babel({
       babelrc: false,
       exclude: ['./node_modules/**'],
-      presets: [['@form8ion', {targets: {node: '10'}, modules: false}]]
+      presets: [['@form8ion', {targets: {node: '14.18'}, modules: false}]]
     })
   ],
   external: 'spdx-license-list/simple',

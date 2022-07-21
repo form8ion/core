@@ -3,6 +3,9 @@
   "description": "core logic for form8ion tools",
   "license": "MIT",
   "version": "0.0.0-semantically-released",
+  "engines": {
+    "node": "^14.18 || >=16"
+  },
   "files": [
     "example.js",
     "lib/"
@@ -28,7 +31,7 @@
     "lint:js": "eslint . --cache",
     "lint:md": "remark . --frail",
     "generate:md": "remark . --output",
-    "pregenerate:md": "npm run build",
+    "pregenerate:md": "run-s build",
     "lint:sensitive": "ban",
     "pretest:integration": "preview",
     "lint:gherkin": "gherkin-lint",
@@ -46,7 +49,8 @@
     "test:unit": "cross-env NODE_ENV=test c8 run-s test:unit:base",
     "test:unit:base": "DEBUG=any mocha 'src/**/*-test.js'",
     "lint:peer": "npm ls >/dev/null",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint:engines": "ls-engines"
   },
   "devDependencies": {
     "@babel/register": "7.18.9",
@@ -67,6 +71,7 @@
     "gherkin-lint": "4.2.2",
     "husky": "8.0.1",
     "lockfile-lint": "4.7.6",
+    "ls-engines": "0.7.0",
     "mocha": "10.0.0",
     "mock-fs": "5.1.2",
     "npm-run-all": "4.1.5",
