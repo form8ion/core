@@ -1,4 +1,4 @@
-import {directoryExists, fileExists} from './lib/index.cjs';
+import {directoryExists, fileExists} from './lib/index.js';
 
 (async () => {
   await fileExists('path/to/some/expected/file');
