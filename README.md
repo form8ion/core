@@ -17,6 +17,7 @@ core logic for [form8ion](https://github.com/form8ion/) tools
   * [API](#api)
     * [`fileExists`](#fileexists)
     * [`directoryExists`](#directoryexists)
+    * [`validateOptions`](#validateoptions)
     * [`applyEnhancers`](#applyenhancers)
       * [`results` __object__ (_required_)](#results-object-required)
       * [`enhancers` __array__ (_required_)](#enhancers-array-required)
@@ -71,6 +72,10 @@ to determine whether a file exists at a given path.
 
 wrapper around [`fs.promises.stat()`](https://nodejs.org/api/fs.html#fs_fspromises_stat_path_options)
 to determine whether a directory exists at a given path.
+
+#### `validateOptions`
+
+Validates provided options against a [joi](https://joi.dev/) schema.
 
 #### `applyEnhancers`
 
