@@ -50,9 +50,11 @@ When('the config file is written', async function () {
 Then('the config is defined in the file', async function () {
   const {desiredConfigFileFormat} = this;
   const fileContents = await fs.readFile(
-    `${process.cwd()}/${this.configName}.${fileTypeExtensions[desiredConfigFileFormat]}`
+    `${process.cwd()}/${this.configName}.${fileTypeExtensions[desiredConfigFileFormat]}`,
+    'utf-8'
   );
   const config = parseConfigFileContent(fileContents, desiredConfigFileFormat);
 
+  assert.equal(fileContents.slice(-1), '\n');
   assert.deepEqual(config, this.config);
 });

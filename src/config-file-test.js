@@ -43,7 +43,8 @@ suite('config file', () => {
       assert.calledWith(
         fs.writeFile,
         `${filePath}/${fileName}.${fileTypeExtensions[fileTypes.JSON]}`,
-        JSON.stringify(config, null, 2)
+        `${JSON.stringify(config, null, 2)}
+`
       );
     });
 
@@ -83,7 +84,8 @@ suite('config file', () => {
 
         await mergeIntoExisting({format: fileTypes.JSON, config, path: filePath, name: fileName});
 
-        assert.calledWith(fs.writeFile, pathToConfigFile, JSON.stringify(mergedConfig, null, 2));
+        assert.calledWith(fs.writeFile, pathToConfigFile, `${JSON.stringify(mergedConfig, null, 2)}
+`);
       }
     );
 

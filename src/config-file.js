@@ -26,7 +26,7 @@ export function write({format, config, path, name}) {
   const filePath = buildFilePathFrom(path, name, format);
 
   if (fileTypes.JSON === format) {
-    return fs.writeFile(filePath, JSON.stringify(config, null, 2));
+    return fs.writeFile(filePath, `${JSON.stringify(config, null, 2)}\n`);
   }
 
   if (fileTypes.YAML === format) {
