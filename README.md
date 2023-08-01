@@ -18,6 +18,8 @@ core logic for [form8ion](https://github.com/form8ion/) tools
     * [`fileExists`](#fileexists)
     * [`directoryExists`](#directoryexists)
     * [`validateOptions`](#validateoptions)
+      * [`schema` (_required_)](#schema-required)
+      * [`options` (_required_)](#options-required)
     * [`applyEnhancers`](#applyenhancers)
       * [`results` __object__ (_required_)](#results-object-required)
       * [`enhancers` __array__ (_required_)](#enhancers-array-required)
@@ -76,6 +78,14 @@ to determine whether a directory exists at a given path.
 #### `validateOptions`
 
 Validates provided options against a [joi](https://joi.dev/) schema.
+
+##### `schema` (_required_)
+
+[joi](https://joi.dev/) schema
+
+##### `options` (_required_)
+
+options to compare to the provided schema
 
 #### `applyEnhancers`
 
