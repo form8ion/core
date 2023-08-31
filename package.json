@@ -59,7 +59,7 @@
     "@travi/cli-messages": "^1.0.5",
     "deepmerge": "^4.2.2",
     "js-yaml": "^4.1.0",
-    "spdx-license-list": "6.6.0"
+    "spdx-license-list": "6.7.0"
   },
   "devDependencies": {
     "@babel/register": "7.22.5",
