@@ -1,7 +1,8 @@
 import {assert} from 'chai';
 import any from '@travi/any';
 import sinon from 'sinon';
-import applyEnhancers from './enhancer-applier';
+
+import applyEnhancers from './enhancer-applier.js';
 
 suite('enhancers', () => {
   const results = any.simpleObject();

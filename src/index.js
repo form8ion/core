@@ -1,8 +1,8 @@
-export {default as fileExists} from './file-exists';
-export {default as directoryExists} from './directory-exists';
-export {default as validateOptions} from './options-validator';
-export {questionNames} from './prompts/question-names';
-export {questionsForBaseDetails} from './prompts/questions';
-export {default as applyEnhancers} from './enhancer-applier';
-export {write as writeConfigFile, mergeIntoExisting as mergeIntoExistingConfigFile} from './config-file';
-export {fileTypes} from './file-types';
+export {default as fileExists} from './file-exists.js';
+export {default as directoryExists} from './directory-exists.js';
+export {default as validateOptions} from './options-validator.js';
+export {questionNames} from './prompts/question-names.js';
+export {questionsForBaseDetails} from './prompts/questions.js';
+export {default as applyEnhancers} from './enhancer-applier.js';
+export {write as writeConfigFile, mergeIntoExisting as mergeIntoExistingConfigFile} from './config-file.js';
+export {fileTypes} from './file-types.js';
