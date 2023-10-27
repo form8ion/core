@@ -1,8 +1,10 @@
 import {promises as fs} from 'fs';
+
 import {assert} from 'chai';
 import sinon from 'sinon';
 import any from '@travi/any';
-import exists from './exists';
+
+import exists from './exists.js';
 
 suite('exists', () => {
   let sandbox;

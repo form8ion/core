@@ -1,8 +1,9 @@
 import sinon from 'sinon';
 import any from '@travi/any';
 import {assert} from 'chai';
-import * as exists from './exists';
-import fileExists from './file-exists';
+
+import * as exists from './exists.js';
+import fileExists from './file-exists.js';
 
 suite('file exists', () => {
   let sandbox;

@@ -6,8 +6,8 @@ import any from '@travi/any';
 import {assert} from 'chai';
 import sinon from 'sinon';
 
-import {fileTypeExtensions, fileTypes} from './file-types';
-import {write, mergeIntoExisting} from './config-file';
+import {fileTypeExtensions, fileTypes} from './file-types.js';
+import {write, mergeIntoExisting} from './config-file.js';
 
 suite('config file', () => {
   let sandbox;

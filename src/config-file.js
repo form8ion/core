@@ -2,7 +2,7 @@ import {promises as fs} from 'fs';
 import {dump, load} from 'js-yaml';
 import deepmerge from 'deepmerge';
 
-import {fileTypes, fileTypeExtensions} from './file-types';
+import {fileTypes, fileTypeExtensions} from './file-types.js';
 
 function buildFilePathFrom(path, name, format) {
   return `${path}/${name}.${fileTypeExtensions[format]}`;

@@ -1,4 +1,4 @@
-import {questionNames} from './question-names';
+import {questionNames} from './question-names.js';
 
 export function unlicensedConfirmationShouldBePresented(answers) {
   return 'Private' === answers[questionNames.VISIBILITY];

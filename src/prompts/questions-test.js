@@ -1,11 +1,13 @@
 import path from 'path';
 import spdxLicenseList from 'spdx-license-list/simple';
+
 import any from '@travi/any';
 import {assert} from 'chai';
 import sinon from 'sinon';
-import {questionNames as coreQuestionNames} from './question-names';
-import * as predicates from './predicates';
-import {questionsForBaseDetails} from './questions';
+
+import {questionNames as coreQuestionNames} from './question-names.js';
+import * as predicates from './predicates.js';
+import {questionsForBaseDetails} from './questions.js';
 
 suite('project scaffolder prompts', () => {
   let sandbox;

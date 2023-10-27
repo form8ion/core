@@ -1,7 +1,8 @@
 import sinon from 'sinon';
 import any from '@travi/any';
 import {assert} from 'chai';
-import validator from './options-validator';
+
+import validator from './options-validator.js';
 
 suite('options validator', () => {
   let validate;

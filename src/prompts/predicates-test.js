@@ -1,11 +1,12 @@
 import {assert} from 'chai';
 import any from '@travi/any';
-import {questionNames} from './question-names';
+
+import {questionNames} from './question-names.js';
 import {
   copyrightInformationShouldBeRequested,
   licenseChoicesShouldBePresented,
   unlicensedConfirmationShouldBePresented
-} from './predicates';
+} from './predicates.js';
 
 suite('prompt conditionals', () => {
   suite('unlicensed confirmation', () => {

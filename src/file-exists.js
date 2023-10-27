@@ -1,4 +1,4 @@
-import exists from './exists';
+import exists from './exists.js';
 
 export default async function (path) {
   const stats = await exists(path);
