@@ -194,7 +194,7 @@ $ npm test
 
 [coverage-link]: https://codecov.io/github/form8ion/core
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/form8ion/core.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/form8ion/core?logo=codecov
 
 [license-link]: LICENSE
 
@@ -202,7 +202,7 @@ $ npm test
 
 [npm-link]: https://www.npmjs.com/package/@form8ion/core
 
-[npm-badge]: https://img.shields.io/npm/v/@form8ion/core.svg
+[npm-badge]: https://img.shields.io/npm/v/@form8ion/core?logo=npm
 
 [runkit-link]: https://npm.runkit.com/@form8ion/core
 
