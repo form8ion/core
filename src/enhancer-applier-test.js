@@ -58,4 +58,8 @@ suite('enhancers', () => {
   test('that no liftEnhancers are applied if none are provided', async () => {
     assert.deepEqual(await applyEnhancers({results}), results);
   });
+
+  test('that empty results are applied when none are provided', async () => {
+    assert.deepEqual(await applyEnhancers({}), {});
+  });
 });
