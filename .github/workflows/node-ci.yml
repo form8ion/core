@@ -4,6 +4,7 @@ name: Node.js CI
     branches:
       - master
       - beta
+      - 3.x
       - renovate/**
   pull_request:
     types:
