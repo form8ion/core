@@ -1,7 +1,7 @@
 import deepmerge from 'deepmerge';
 import {info} from '@travi/cli-messages';
 
-export default async function ({results, enhancers = {}, options}) {
+export default async function ({results = {}, enhancers = {}, options}) {
   info('Applying Enhancers');
 
   return Object.values(enhancers)
