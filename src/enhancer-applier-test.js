@@ -17,8 +17,8 @@ suite('enhancers', () => {
     const anotherLiftResults = any.simpleObject();
     const options = any.simpleObject();
     test.withArgs(options).resolves(true);
-    lift.withArgs({results, ...options}).resolves(liftResults);
-    anotherLift.withArgs({results: {...results, ...liftResults}, ...options}).resolves(anotherLiftResults);
+    lift.withArgs({results, ...options}, {}).resolves(liftResults);
+    anotherLift.withArgs({results: {...results, ...liftResults}, ...options}, {}).resolves(anotherLiftResults);
 
     const enhancerResults = await applyEnhancers({
       results,
@@ -28,6 +28,38 @@ suite('enhancers', () => {
         [any.word()]: {test, lift: anotherLift}
       },
       options
+    });
+
+    assert.deepEqual(enhancerResults, {...results, ...liftResults, ...anotherLiftResults});
+    assert.calledWith(lift, {results, ...options});
+    assert.notCalled(otherLift);
+  });
+
+  test('that dependencies are passed to enhancers when provided', async () => {
+    const lift = sinon.stub();
+    const anotherLift = sinon.stub();
+    const test = sinon.stub();
+    const otherLift = sinon.spy();
+    const liftNextSteps = any.listOf(any.simpleObject);
+    const liftResults = {nextSteps: liftNextSteps};
+    const anotherLiftResults = any.simpleObject();
+    const options = any.simpleObject();
+    const dependencies = any.simpleObject();
+    test.withArgs(options).resolves(true);
+    lift.withArgs({results, ...options}, dependencies).resolves(liftResults);
+    anotherLift
+      .withArgs({results: {...results, ...liftResults}, ...options}, dependencies)
+      .resolves(anotherLiftResults);
+
+    const enhancerResults = await applyEnhancers({
+      results,
+      enhancers: {
+        [any.word()]: {test, lift},
+        [any.word()]: {test: () => Promise.resolve(false), lift: otherLift},
+        [any.word()]: {test, lift: anotherLift}
+      },
+      options,
+      dependencies
     });
 
     assert.deepEqual(enhancerResults, {...results, ...liftResults, ...anotherLiftResults});
