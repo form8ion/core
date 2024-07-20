@@ -9,3 +9,8 @@ Feature: config file
     Given the desired config file format is "yaml"
     When the config file is written
     Then the config is defined in the file
+
+  Scenario: write ini config
+    Given the desired config file format is "ini"
+    When the config file is written
+    Then the config is defined in the file

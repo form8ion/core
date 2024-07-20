@@ -1,6 +1,7 @@
 import {resolve} from 'path';
 import {promises as fs} from 'fs';
 import {load} from 'js-yaml';
+import {parse, stringify} from 'ini';
 // eslint-disable-next-line import/no-extraneous-dependencies,import/no-unresolved
 import {writeConfigFile} from '@form8ion/core';
 
@@ -18,6 +19,7 @@ const stubbedNodeModules = stubbedFs.load(resolve(...pathToNodeModules));
 function parseConfigFileContent(fileContents, format) {
   if (fileTypes.JSON === format) return JSON.parse(fileContents);
   if (fileTypes.YAML === format) return load(fileContents);
+  if (fileTypes.INI === format) return parse(fileContents);
 
   throw new Error('desired file format is unsupported, so not parsing');
 }

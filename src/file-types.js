@@ -3,7 +3,8 @@ export const fileTypes = {
   YAML: 'yaml',
   COMMON_JS: 'common-js',
   ES_MODULE: 'es-module',
-  JAVASCRIPT: 'javascript'
+  JAVASCRIPT: 'javascript',
+  INI: 'ini'
 };
 
 export const fileTypeExtensions = {
@@ -11,5 +12,6 @@ export const fileTypeExtensions = {
   [fileTypes.YAML]: 'yml',
   [fileTypes.COMMON_JS]: 'cjs',
   [fileTypes.ES_MODULE]: 'mjs',
-  [fileTypes.JAVASCRIPT]: 'js'
+  [fileTypes.JAVASCRIPT]: 'js',
+  [fileTypes.INI]: 'ini'
 };

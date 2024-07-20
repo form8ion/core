@@ -1,5 +1,6 @@
 import {promises as fs} from 'fs';
 import {dump, load} from 'js-yaml';
+import {parse, stringify} from 'ini';
 import deepmerge from 'deepmerge';
 
 import {fileTypes, fileTypeExtensions} from './file-types.js';
@@ -31,6 +32,10 @@ export function write({format, config, path, name}) {
 
   if (fileTypes.YAML === format) {
     return fs.writeFile(filePath, dump(config));
+  }
+
+  if (fileTypes.INI === format) {
+    return fs.writeFile(filePath, stringify(config));
   }
 
   throw new Error('The requested format for the config file is unsupported');

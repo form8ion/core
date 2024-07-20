@@ -1,5 +1,6 @@
 import {promises as fs} from 'fs';
 import {dump} from 'js-yaml';
+import {stringify} from 'ini';
 import deepmerge from 'deepmerge';
 
 import any from '@travi/any';
@@ -54,6 +55,18 @@ suite('config file', () => {
       await write({format: fileTypes.YAML, config, path: filePath, name: fileName});
 
       assert.calledWith(fs.writeFile, `${filePath}/${fileName}.${fileTypeExtensions[fileTypes.YAML]}`, dump(config));
+    });
+
+    test('that an ini file is written when the INI file type is chosen', async () => {
+      const config = any.simpleObject();
+
+      await write({format: fileTypes.INI, config, path: filePath, name: fileName});
+
+      assert.calledWith(
+        fs.writeFile,
+        `${filePath}/${fileName}.${fileTypeExtensions[fileTypes.INI]}`,
+        stringify(config)
+      );
     });
   });
 
