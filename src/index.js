@@ -6,3 +6,4 @@ export {questionsForBaseDetails} from './prompts/questions.js';
 export {default as applyEnhancers} from './enhancer-applier.js';
 export {write as writeConfigFile, mergeIntoExisting as mergeIntoExistingConfigFile} from './config-file.js';
 export {fileTypes} from './file-types.js';
+export * from './options-schemas/index.js';
