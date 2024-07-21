@@ -69,6 +69,32 @@ suite('form8ion plugin schema', () => {
     );
   });
 
+  test('that a plugin can include a `test` function', () => {
+    const plugin = {
+      scaffold: options => options,
+      test: options => options
+    };
+
+    assert.deepEqual(
+      validateOptions(pluginSchema, plugin),
+      plugin
+    );
+  });
+
+  test('that `test` must be a function', () => {
+    assert.throws(
+      () => validateOptions(pluginSchema, {scaffold: options => options, test: any.word()}),
+      '"test" must be of type function'
+    );
+  });
+
+  test('that the `test` function must take an options object', () => {
+    assert.throws(
+      () => validateOptions(pluginSchema, {scaffold: options => options, test: () => undefined}),
+      '"test" must have an arity of 1'
+    );
+  });
+
   test('that additional properties are allowed', async () => {
     const plugin = {
       scaffold: options => options,

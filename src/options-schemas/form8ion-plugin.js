@@ -3,6 +3,7 @@ import joi from 'joi';
 export default joi.object().required()
   .keys({
     scaffold: joi.func().arity(1).required(),
-    lift: joi.func().arity(1)
+    lift: joi.func().arity(1),
+    test: joi.func().arity(1)
   })
   .unknown();
