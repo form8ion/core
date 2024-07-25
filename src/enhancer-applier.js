@@ -1,12 +1,28 @@
 import deepmerge from 'deepmerge';
-import {info} from '@travi/cli-messages';
+import {info, warn} from '@travi/cli-messages';
+
+async function pluginAppliesToProject(pluginName, test, lift, options) {
+  if (!test) {
+    warn(`Plugin ${pluginName} does not provide a 'test' predicate`);
+
+    return false;
+  }
+
+  if (!lift) {
+    warn(`Plugin ${pluginName} does not provide a 'lift' function`);
+
+    return false;
+  }
+
+  return test(options);
+}
 
 export default async function ({results = {}, enhancers = {}, options, dependencies = {}}) {
   info('Applying Enhancers');
 
-  return Object.values(enhancers)
-    .reduce(async (acc, {test, lift}) => {
-      if (test && lift && await test(options)) {
+  return Object.entries(enhancers)
+    .reduce(async (acc, [pluginName, {test, lift}]) => {
+      if (await pluginAppliesToProject(pluginName, test, lift, options)) {
         const previousResults = await acc;
 
         return deepmerge(
