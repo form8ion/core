@@ -5,13 +5,13 @@ export default async function ({results = {}, enhancers = {}, options, dependenc
   info('Applying Enhancers');
 
   return Object.values(enhancers)
-    .reduce(async (acc, enhancer) => {
-      if (await enhancer.test(options)) {
+    .reduce(async (acc, {test, lift}) => {
+      if (test && lift && await test(options)) {
         const previousResults = await acc;
 
         return deepmerge(
           previousResults,
-          await enhancer.lift({results: previousResults, ...options}, dependencies)
+          await lift({results: previousResults, ...options}, dependencies)
         );
       }
 
