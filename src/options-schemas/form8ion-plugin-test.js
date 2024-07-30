@@ -20,17 +20,20 @@ suite('form8ion plugin schema', () => {
   test('that the `scaffold` function is required to take an options object', () => {
     assert.throws(
       () => validateOptions(pluginSchema, {scaffold: () => undefined}),
-      '"scaffold" must have an arity of 1'
+      '"scaffold" must have an arity greater or equal to 1'
     );
   });
 
   test('that `scaffold` is considered valid if an options object is provided', () => {
     const plugin = {scaffold: options => options};
 
-    assert.deepEqual(
-      validateOptions(pluginSchema, plugin),
-      plugin
-    );
+    assert.deepEqual(validateOptions(pluginSchema, plugin), plugin);
+  });
+
+  test('that `scaffold` can take a dependencies object', () => {
+    const plugin = {scaffold: (options, dependencies) => ([options, dependencies])};
+
+    assert.deepEqual(validateOptions(pluginSchema, plugin), plugin);
   });
 
   test('that a plugin can include a `lift` function', () => {
@@ -55,18 +58,14 @@ suite('form8ion plugin schema', () => {
   test('that the `lift` function must take an options object', () => {
     assert.throws(
       () => validateOptions(pluginSchema, {scaffold: options => options, lift: () => undefined}),
-      '"lift" must have an arity of 1'
+      '"lift" must have an arity greater or equal to 1'
     );
   });
 
   test('that the `lift` function can take a dependencies object', () => {
-    assert.throws(
-      () => validateOptions(
-        pluginSchema,
-        {scaffold: options => options, lift: (options, dependencies) => ([options, dependencies])}
-      ),
-      '"lift" must have an arity of 1'
-    );
+    const plugin = {scaffold: options => options, lift: (options, dependencies) => ([options, dependencies])};
+
+    assert.deepEqual(validateOptions(pluginSchema, plugin), plugin);
   });
 
   test('that a plugin can include a `test` function', () => {
