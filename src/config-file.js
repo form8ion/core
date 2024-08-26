@@ -8,7 +8,7 @@ function buildFilePathFrom(path, name, format) {
   return `${path}/${name}.${fileTypeExtensions[format]}`;
 }
 
-export async function loadExistingConfig(path, name, format) {
+export async function loadExistingConfig({path, name, format}) {
   const filePath = buildFilePathFrom(path, name, format);
 
   if (fileTypes.JSON === format) {
@@ -37,7 +37,7 @@ export function write({format, config, path, name}) {
 }
 
 export async function mergeIntoExisting({format, config, path, name}) {
-  const existingConfig = await loadExistingConfig(path, name, format);
+  const existingConfig = await loadExistingConfig({path, name, format});
 
   return write({format, config: deepmerge.all([existingConfig, config]), path, name});
 }
