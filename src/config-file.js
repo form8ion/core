@@ -8,7 +8,7 @@ function buildFilePathFrom(path, name, format) {
   return `${path}/${name}.${fileTypeExtensions[format]}`;
 }
 
-async function loadExistingConfig(path, name, format) {
+export async function loadExistingConfig(path, name, format) {
   const filePath = buildFilePathFrom(path, name, format);
 
   if (fileTypes.JSON === format) {
