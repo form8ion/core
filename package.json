@@ -86,7 +86,6 @@
     "filedirname": "3.4.0",
     "gherkin-lint": "4.2.4",
     "husky": "9.1.7",
-    "jest-when": "3.7.0",
     "lockfile-lint": "4.14.0",
     "ls-engines": "0.9.3",
     "mocha": "11.1.0",
@@ -100,6 +99,7 @@
     "rollup": "4.36.0",
     "rollup-plugin-auto-external": "2.0.0",
     "sinon": "19.0.2",
-    "vitest": "3.0.9"
+    "vitest": "3.0.9",
+    "vitest-when": "0.6.0"
   }
 }
