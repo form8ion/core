@@ -1,6 +1,8 @@
 import {resolve} from 'path';
 import {promises as fs} from 'fs';
 import {load} from 'js-yaml';
+import filedirname from 'filedirname';
+
 // eslint-disable-next-line import/no-extraneous-dependencies,import/no-unresolved
 import {writeConfigFile} from '@form8ion/core';
 
@@ -11,6 +13,7 @@ import any from '@travi/any';
 
 import {fileTypeExtensions, fileTypes} from '../../../../src/file-types.js';
 
+const [, __dirname] = filedirname();
 const pathToProjectRoot = [__dirname, '..', '..', '..', '..'];
 const pathToNodeModules = [...pathToProjectRoot, 'node_modules'];
 const stubbedNodeModules = stubbedFs.load(resolve(...pathToNodeModules));
