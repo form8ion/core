@@ -11,5 +11,7 @@ export {
   write as writeConfigFile,
   mergeIntoExisting as mergeIntoExistingConfigFile
 } from './config-file.js';
+export {default as composeDependenciesInto} from './dependency-composer.js';
+
 export {fileTypes} from './file-types.js';
 export const optionsSchemas = schemas;
