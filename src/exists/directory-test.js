@@ -3,7 +3,7 @@ import any from '@travi/any';
 import {assert} from 'chai';
 
 import * as exists from './exists.js';
-import directoryExists from './directory-exists.js';
+import directoryExists from './directory.js';
 
 suite('directory exists', () => {
   let sandbox;

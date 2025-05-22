@@ -1,7 +1,6 @@
 import * as schemas from './options-schemas/index.js';
 
-export {default as fileExists} from './file-exists.js';
-export {default as directoryExists} from './directory-exists.js';
+export * from './exists/index.js';
 export {default as ungroupObject} from './object-ungrouper.js';
 export {default as validateOptions} from './options-validator.js';
 export {questionNames} from './prompts/question-names.js';
