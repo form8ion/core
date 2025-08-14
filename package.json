@@ -70,7 +70,7 @@
     "spdx-license-list": "6.10.0"
   },
   "devDependencies": {
-    "@babel/register": "7.27.1",
+    "@babel/register": "7.28.3",
     "@cucumber/cucumber": "11.3.0",
     "@form8ion/babel-preset": "1.6.147",
     "@form8ion/commitlint-config": "2.0.6",
