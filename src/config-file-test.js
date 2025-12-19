@@ -1,5 +1,6 @@
 import {promises as fs} from 'fs';
 import {dump} from 'js-yaml';
+import {stringify} from 'ini';
 import deepmerge from 'deepmerge';
 
 import any from '@travi/any';
@@ -7,7 +8,7 @@ import {assert} from 'chai';
 import sinon from 'sinon';
 
 import {fileTypeExtensions, fileTypes} from './file-types.js';
-import {write, mergeIntoExisting} from './config-file.js';
+import {mergeIntoExisting, write} from './config-file.js';
 
 suite('config file', () => {
   let sandbox;
@@ -55,6 +56,18 @@ suite('config file', () => {
 
       assert.calledWith(fs.writeFile, `${filePath}/${fileName}.${fileTypeExtensions[fileTypes.YAML]}`, dump(config));
     });
+
+    test('that an ini file is written when the INI file type is chosen', async () => {
+      const config = any.simpleObject();
+
+      await write({format: fileTypes.INI, config, path: filePath, name: fileName});
+
+      assert.calledWith(
+        fs.writeFile,
+        `${filePath}/${fileName}.${fileTypeExtensions[fileTypes.INI]}`,
+        stringify(config)
+      );
+    });
   });
 
   suite('merge into existing', () => {
@@ -98,6 +111,18 @@ suite('config file', () => {
         await mergeIntoExisting({format: fileTypes.YAML, config, path: filePath, name: fileName});
 
         assert.calledWith(fs.writeFile, pathToConfigFile, dump(mergedConfig));
+      }
+    );
+
+    test(
+      'that an existing ini file has the provided config merged into it when the INI file type is chosen',
+      async () => {
+        const pathToConfigFile = `${filePath}/${fileName}.${fileTypeExtensions[fileTypes.INI]}`;
+        fs.readFile.withArgs(pathToConfigFile, 'utf-8').resolves(stringify(existingConfig));
+
+        await mergeIntoExisting({format: fileTypes.INI, config, path: filePath, name: fileName});
+
+        assert.calledWith(fs.writeFile, pathToConfigFile, stringify(mergedConfig));
       }
     );
   });
