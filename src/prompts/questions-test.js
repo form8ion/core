@@ -38,10 +38,13 @@ suite('project scaffolder prompts', () => {
           },
           {
             name: coreQuestionNames.VISIBILITY,
-            message: 'Should this project be public or private?',
+            message: 'What is the contribution model for this project?',
             type: 'list',
-            choices: ['Public', 'Private'],
-            default: 'Private'
+            choices: [
+              {name: 'Open Source', value: 'OSS'},
+              {name: 'Inner Source', value: 'ISS'},
+              {name: 'Closed Source', value: 'CS'}
+            ]
           },
           {
             name: coreQuestionNames.UNLICENSED,
@@ -90,10 +93,13 @@ suite('project scaffolder prompts', () => {
           },
           {
             name: coreQuestionNames.VISIBILITY,
-            message: 'Should this project be public or private?',
+            message: 'What is the contribution model for this project?',
             type: 'list',
-            choices: ['Public', 'Private'],
-            default: 'Private'
+            choices: [
+              {name: 'Open Source', value: 'OSS'},
+              {name: 'Inner Source', value: 'ISS'},
+              {name: 'Closed Source', value: 'CS'}
+            ]
           },
           {
             name: coreQuestionNames.UNLICENSED,
