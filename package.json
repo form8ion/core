@@ -41,8 +41,8 @@
     "build:js": "rollup --config",
     "watch": "run-s 'build:js -- --watch'",
     "prepack": "run-s build",
-    "test:unit": "cross-env NODE_ENV=test c8 run-s test:unit:base",
-    "test:unit:base": "npm-run-all --print-label --parallel test:unit:mocha test:unit:vitest",
+    "test:unit": "run-s 'test:unit:base'",
+    "test:unit:base": "npm-run-all --print-label --parallel test:unit:mocha test:unit:vitest -- --coverage",
     "test:unit:vitest": "DEBUG=any vitest run",
     "test:unit:mocha": "DEBUG=any mocha 'src/**/*-test.js'",
     "lint:peer": "npm ls >/dev/null",
@@ -81,6 +81,7 @@
     "@form8ion/remark-lint-preset": "6.0.7",
     "@rollup/plugin-babel": "7.0.0",
     "@travi/any": "3.3.0",
+    "@vitest/coverage-v8": "3.2.4",
     "ban-sensitive-files": "1.10.11",
     "c8": "11.0.0",
     "chai": "4.5.0",
@@ -102,7 +103,7 @@
     "rollup": "4.60.3",
     "rollup-plugin-auto-external": "2.0.0",
     "sinon": "22.0.0",
-    "vitest": "4.0.18",
+    "vitest": "3.2.4",
     "vitest-when": "0.10.0"
   }
 }
