@@ -40,6 +40,7 @@ suite('project scaffolder prompts', () => {
             name: coreQuestionNames.VISIBILITY,
             message: 'What is the contribution model for this project?',
             type: 'list',
+            validate: predicates.visibilityIsValid,
             choices: [
               {name: 'Open Source', value: 'OSS'},
               {name: 'Inner Source', value: 'ISS'},
@@ -95,6 +96,7 @@ suite('project scaffolder prompts', () => {
             name: coreQuestionNames.VISIBILITY,
             message: 'What is the contribution model for this project?',
             type: 'list',
+            validate: predicates.visibilityIsValid,
             choices: [
               {name: 'Open Source', value: 'OSS'},
               {name: 'Inner Source', value: 'ISS'},

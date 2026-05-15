@@ -1,5 +1,11 @@
 import {questionNames} from './question-names.js';
 
+const visibilityOptions = ['OSS', 'ISS', 'CS'];
+
+export function visibilityIsValid(visibility) {
+  return visibilityOptions.includes(visibility);
+}
+
 export function unlicensedConfirmationShouldBePresented(answers) {
   return 'Private' === answers[questionNames.VISIBILITY];
 }

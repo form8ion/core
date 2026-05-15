@@ -5,10 +5,29 @@ import {questionNames} from './question-names.js';
 import {
   copyrightInformationShouldBeRequested,
   licenseChoicesShouldBePresented,
+  visibilityIsValid,
   unlicensedConfirmationShouldBePresented
 } from './predicates.js';
 
 suite('prompt conditionals', () => {
+  suite('visibility validation', () => {
+    test('that oss is considered a valid response', () => {
+      assert.isTrue(visibilityIsValid('OSS'));
+    });
+
+    test('that iss is considered a valid response', () => {
+      assert.isTrue(visibilityIsValid('ISS'));
+    });
+
+    test('that cs is considered a valid response', () => {
+      assert.isTrue(visibilityIsValid('CS'));
+    });
+
+    test('that an arbitrary value is considered invalid', () => {
+      assert.isFalse(visibilityIsValid(any.string()));
+    });
+  });
+
   suite('unlicensed confirmation', () => {
     test('that the unlicensed confirmation is shown for a private project', () => {
       assert.isTrue(unlicensedConfirmationShouldBePresented({[questionNames.VISIBILITY]: 'Private'}));

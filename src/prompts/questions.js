@@ -6,6 +6,7 @@ import {questionNames} from './question-names.js';
 import {
   copyrightInformationShouldBeRequested,
   licenseChoicesShouldBePresented,
+  visibilityIsValid,
   unlicensedConfirmationShouldBePresented
 } from './predicates.js';
 
@@ -53,6 +54,7 @@ export function questionsForBaseDetails(decisions, projectRoot, copyrightHolder)
       name: questionNames.VISIBILITY,
       message: 'What is the contribution model for this project?',
       type: 'list',
+      validate: visibilityIsValid,
       choices: [
         {name: 'Open Source', value: 'OSS'},
         {name: 'Inner Source', value: 'ISS'},
