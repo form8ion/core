@@ -82,7 +82,7 @@
     "@form8ion/remark-lint-preset": "6.0.7",
     "@rollup/plugin-babel": "7.0.0",
     "@travi/any": "3.3.0",
-    "@vitest/coverage-v8": "3.2.4",
+    "@vitest/coverage-v8": "4.1.6",
     "ban-sensitive-files": "1.10.11",
     "chai": "6.2.2",
     "cz-conventional-changelog": "3.3.0",
@@ -102,7 +102,7 @@
     "rollup": "4.60.3",
     "rollup-plugin-auto-external": "2.0.0",
     "sinon": "22.0.0",
-    "vitest": "3.2.4",
+    "vitest": "4.1.6",
     "vitest-when": "0.10.0"
   }
 }
