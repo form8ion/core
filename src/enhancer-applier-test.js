@@ -7,6 +7,7 @@ import applyEnhancers from './enhancer-applier.js';
 suite('enhancers', () => {
   const results = any.simpleObject();
   const logger = {info: () => undefined, warn: () => undefined};
+  const dependencies = {...any.simpleObject(), logger};
 
   test('that an enhancer that matches the project is executed', async () => {
     const lift = sinon.stub();
@@ -18,8 +19,10 @@ suite('enhancers', () => {
     const anotherLiftResults = any.simpleObject();
     const options = any.simpleObject();
     test.withArgs(options).resolves(true);
-    lift.withArgs({results, ...options}, {}).resolves(liftResults);
-    anotherLift.withArgs({results: {...results, ...liftResults}, ...options}, {}).resolves(anotherLiftResults);
+    lift.withArgs({results, ...options}, dependencies).resolves(liftResults);
+    anotherLift
+      .withArgs({results: {...results, ...liftResults}, ...options}, dependencies)
+      .resolves(anotherLiftResults);
 
     const enhancerResults = await applyEnhancers({
       results,
@@ -28,8 +31,9 @@ suite('enhancers', () => {
         [any.word()]: {test: () => Promise.resolve(false), lift: otherLift},
         [any.word()]: {test, lift: anotherLift}
       },
-      options
-    }, {logger});
+      options,
+      dependencies
+    });
 
     assert.deepEqual(enhancerResults, {...results, ...liftResults, ...anotherLiftResults});
     assert.calledWith(lift, {results, ...options});
@@ -46,8 +50,10 @@ suite('enhancers', () => {
     const anotherLiftResults = any.simpleObject();
     const options = any.simpleObject();
     test.withArgs(options).resolves(true);
-    lift.withArgs({results, ...options}, {}).resolves(liftResults);
-    anotherLift.withArgs({results: {...results, ...liftResults}, ...options}, {}).resolves(anotherLiftResults);
+    lift.withArgs({results, ...options}, dependencies).resolves(liftResults);
+    anotherLift
+      .withArgs({results: {...results, ...liftResults}, ...options}, dependencies)
+      .resolves(anotherLiftResults);
 
     const enhancerResults = await applyEnhancers({
       results,
@@ -56,8 +62,9 @@ suite('enhancers', () => {
         [any.word()]: {lift: otherLift},
         [any.word()]: {test, lift: anotherLift}
       },
-      options
-    }, {logger});
+      options,
+      dependencies
+    });
 
     assert.deepEqual(enhancerResults, {...results, ...liftResults, ...anotherLiftResults});
     assert.calledWith(lift, {results, ...options});
@@ -74,8 +81,10 @@ suite('enhancers', () => {
     const anotherLiftResults = any.simpleObject();
     const options = any.simpleObject();
     test.withArgs(options).resolves(true);
-    lift.withArgs({results, ...options}, {}).resolves(liftResults);
-    anotherLift.withArgs({results: {...results, ...liftResults}, ...options}, {}).resolves(anotherLiftResults);
+    lift.withArgs({results, ...options}, dependencies).resolves(liftResults);
+    anotherLift
+      .withArgs({results: {...results, ...liftResults}, ...options}, dependencies)
+      .resolves(anotherLiftResults);
 
     const enhancerResults = await applyEnhancers({
       results,
@@ -84,8 +93,9 @@ suite('enhancers', () => {
         [any.word()]: {test},
         [any.word()]: {test, lift: anotherLift}
       },
-      options
-    }, {logger});
+      options,
+      dependencies
+    });
 
     assert.deepEqual(enhancerResults, {...results, ...liftResults, ...anotherLiftResults});
     assert.calledWith(lift, {results, ...options});
@@ -101,7 +111,6 @@ suite('enhancers', () => {
     const liftResults = {nextSteps: liftNextSteps};
     const anotherLiftResults = any.simpleObject();
     const options = any.simpleObject();
-    const dependencies = any.simpleObject();
     test.withArgs(options).resolves(true);
     lift.withArgs({results, ...options}, dependencies).resolves(liftResults);
     anotherLift
@@ -117,7 +126,7 @@ suite('enhancers', () => {
       },
       options,
       dependencies
-    }, {logger});
+    });
 
     assert.deepEqual(enhancerResults, {...results, ...liftResults, ...anotherLiftResults});
     assert.calledWith(lift, {results, ...options});
@@ -135,8 +144,9 @@ suite('enhancers', () => {
             test: () => Promise.resolve(true),
             lift: () => Promise.reject(error)
           }
-        }
-      }, {logger});
+        },
+        dependencies
+      });
 
       throw new Error('applying enhancers should have thrown an error');
     } catch (e) {
@@ -145,10 +155,10 @@ suite('enhancers', () => {
   });
 
   test('that no liftEnhancers are applied if none are provided', async () => {
-    assert.deepEqual(await applyEnhancers({results}, {logger}), results);
+    assert.deepEqual(await applyEnhancers({results, dependencies}), results);
   });
 
   test('that empty results are applied when none are provided', async () => {
-    assert.deepEqual(await applyEnhancers({}, {logger}), {});
+    assert.deepEqual(await applyEnhancers({dependencies}), {});
   });
 });

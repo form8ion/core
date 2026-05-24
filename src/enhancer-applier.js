@@ -16,12 +16,14 @@ async function pluginAppliesToProject(pluginName, test, lift, options, {logger})
   return test(options);
 }
 
-export default async function applyEnhancer({results = {}, enhancers = {}, options, dependencies = {}}, {logger}) {
+export default async function applyEnhancer({results = {}, enhancers = {}, options, dependencies}) {
+  const {logger} = dependencies;
+
   logger.info('Applying Enhancers');
 
   return Object.entries(enhancers)
     .reduce(async (acc, [pluginName, {test, lift}]) => {
-      if (await pluginAppliesToProject(pluginName, test, lift, options, {logger})) {
+      if (await pluginAppliesToProject(pluginName, test, lift, options, dependencies)) {
         const previousResults = await acc;
 
         return deepmerge(
