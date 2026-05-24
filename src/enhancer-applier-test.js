@@ -6,6 +6,7 @@ import applyEnhancers from './enhancer-applier.js';
 
 suite('enhancers', () => {
   const results = any.simpleObject();
+  const logger = {info: () => undefined, warn: () => undefined};
 
   test('that an enhancer that matches the project is executed', async () => {
     const lift = sinon.stub();
@@ -28,7 +29,7 @@ suite('enhancers', () => {
         [any.word()]: {test, lift: anotherLift}
       },
       options
-    });
+    }, {logger});
 
     assert.deepEqual(enhancerResults, {...results, ...liftResults, ...anotherLiftResults});
     assert.calledWith(lift, {results, ...options});
@@ -56,7 +57,7 @@ suite('enhancers', () => {
         [any.word()]: {test, lift: anotherLift}
       },
       options
-    });
+    }, {logger});
 
     assert.deepEqual(enhancerResults, {...results, ...liftResults, ...anotherLiftResults});
     assert.calledWith(lift, {results, ...options});
@@ -84,7 +85,7 @@ suite('enhancers', () => {
         [any.word()]: {test, lift: anotherLift}
       },
       options
-    });
+    }, {logger});
 
     assert.deepEqual(enhancerResults, {...results, ...liftResults, ...anotherLiftResults});
     assert.calledWith(lift, {results, ...options});
@@ -116,7 +117,7 @@ suite('enhancers', () => {
       },
       options,
       dependencies
-    });
+    }, {logger});
 
     assert.deepEqual(enhancerResults, {...results, ...liftResults, ...anotherLiftResults});
     assert.calledWith(lift, {results, ...options});
@@ -135,7 +136,7 @@ suite('enhancers', () => {
             lift: () => Promise.reject(error)
           }
         }
-      });
+      }, {logger});
 
       throw new Error('applying enhancers should have thrown an error');
     } catch (e) {
@@ -144,10 +145,10 @@ suite('enhancers', () => {
   });
 
   test('that no liftEnhancers are applied if none are provided', async () => {
-    assert.deepEqual(await applyEnhancers({results}), results);
+    assert.deepEqual(await applyEnhancers({results}, {logger}), results);
   });
 
   test('that empty results are applied when none are provided', async () => {
-    assert.deepEqual(await applyEnhancers({}), {});
+    assert.deepEqual(await applyEnhancers({}, {logger}), {});
   });
 });
