@@ -7,11 +7,11 @@ export function visibilityIsValid(visibility) {
 }
 
 export function unlicensedConfirmationShouldBePresented(answers) {
-  return 'Private' === answers[questionNames.VISIBILITY];
+  return ['ISS', 'CS'].includes(answers[questionNames.VISIBILITY]);
 }
 
 export function licenseChoicesShouldBePresented(answers) {
-  return 'Public' === answers[questionNames.VISIBILITY] || !answers[questionNames.UNLICENSED];
+  return 'OSS' === answers[questionNames.VISIBILITY] || !answers[questionNames.UNLICENSED];
 }
 
 export function copyrightInformationShouldBeRequested(answers) {
