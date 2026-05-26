@@ -1,7 +1,9 @@
 import {assert} from 'chai';
 import any from '@travi/any';
+import sinon from 'sinon';
 
 import {questionNames} from './question-names.js';
+import * as visibilityModule from './visibility-options.js';
 import {
   copyrightInformationShouldBeRequested,
   licenseChoicesShouldBePresented,
@@ -10,21 +12,28 @@ import {
 } from './predicates.js';
 
 suite('prompt conditionals', () => {
+  let sandbox, visibilityOptionsStub;
+
+  setup(() => {
+    sandbox = sinon.createSandbox();
+    visibilityOptionsStub = sandbox.stub(visibilityModule, 'visibilityOptions');
+  });
+
+  teardown(() => sandbox.restore());
+
   suite('visibility validation', () => {
-    test('that oss is considered a valid response', () => {
-      assert.isTrue(visibilityIsValid('OSS'));
-    });
+    test('that every provided option is considered a valid response', () => {
+      const stubbedVisibilityOptions = any.listOf(any.string);
+      visibilityOptionsStub.get(() => stubbedVisibilityOptions);
 
-    test('that iss is considered a valid response', () => {
-      assert.isTrue(visibilityIsValid('ISS'));
-    });
-
-    test('that cs is considered a valid response', () => {
-      assert.isTrue(visibilityIsValid('CS'));
+      stubbedVisibilityOptions.forEach(option => assert.isTrue(visibilityIsValid(option)));
     });
 
     test('that an arbitrary value is considered invalid', () => {
-      assert.isFalse(visibilityIsValid(any.string()));
+      const stubbedVisibilityOptions = any.listOf(any.string);
+      visibilityOptionsStub.get(() => stubbedVisibilityOptions);
+
+      assert.isFalse(visibilityIsValid('not-a-visibility-option'));
     });
   });
 

@@ -8,9 +8,10 @@ import sinon from 'sinon';
 import {questionNames as coreQuestionNames} from './question-names.js';
 import * as predicates from './predicates.js';
 import {questionsForBaseDetails} from './questions.js';
+import * as visibilityModule from './visibility-options.js';
 
 suite('project scaffolder prompts', () => {
-  let sandbox;
+  let sandbox, visibilityChoicesStub;
   const projectPath = any.string();
   const decisions = any.simpleObject();
 
@@ -18,6 +19,7 @@ suite('project scaffolder prompts', () => {
     sandbox = sinon.createSandbox();
 
     sandbox.stub(path, 'basename');
+    visibilityChoicesStub = sandbox.stub(visibilityModule, 'visibilityChoices');
   });
 
   teardown(() => sandbox.restore());
@@ -26,6 +28,11 @@ suite('project scaffolder prompts', () => {
     test('that the user is prompted for the necessary details', async () => {
       const directoryName = any.string();
       const copyrightHolder = any.string();
+      const stubbedVisibilityChoices = any.listOf(() => ({
+        name: any.string(),
+        value: any.string()
+      }));
+      visibilityChoicesStub.get(() => stubbedVisibilityChoices);
       path.basename.withArgs(projectPath).returns(directoryName);
 
       assert.deepEqual(
@@ -41,11 +48,7 @@ suite('project scaffolder prompts', () => {
             message: 'What is the contribution model for this project?',
             type: 'list',
             validate: predicates.visibilityIsValid,
-            choices: [
-              {name: 'Open Source', value: 'OSS'},
-              {name: 'Inner Source', value: 'ISS'},
-              {name: 'Closed Source', value: 'CS'}
-            ]
+            choices: visibilityModule.visibilityChoices
           },
           {
             name: coreQuestionNames.UNLICENSED,
@@ -80,6 +83,11 @@ suite('project scaffolder prompts', () => {
 
     test('that projectPath is optional', async () => {
       const copyrightHolder = any.string();
+      const stubbedVisibilityChoices = any.listOf(() => ({
+        name: any.string(),
+        value: any.string()
+      }));
+      visibilityChoicesStub.get(() => stubbedVisibilityChoices);
       path.basename
         .withArgs(undefined)
         .throws(new Error('The "path" argument must be of type string. Received undefined'));
@@ -97,11 +105,7 @@ suite('project scaffolder prompts', () => {
             message: 'What is the contribution model for this project?',
             type: 'list',
             validate: predicates.visibilityIsValid,
-            choices: [
-              {name: 'Open Source', value: 'OSS'},
-              {name: 'Inner Source', value: 'ISS'},
-              {name: 'Closed Source', value: 'CS'}
-            ]
+            choices: visibilityModule.visibilityChoices
           },
           {
             name: coreQuestionNames.UNLICENSED,

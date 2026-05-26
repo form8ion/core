@@ -1,6 +1,5 @@
 import {questionNames} from './question-names.js';
-
-const visibilityOptions = ['OSS', 'ISS', 'CS'];
+import {visibilityOptions} from './visibility-options.js';
 
 export function visibilityIsValid(visibility) {
   return visibilityOptions.includes(visibility);
