@@ -1,6 +1,6 @@
 import {promises as fs} from 'fs';
 
-export default async function (path) {
+export default async function exists(path) {
   try {
     return await fs.stat(path);
   } catch (e) {

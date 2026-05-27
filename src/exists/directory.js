@@ -1,6 +1,6 @@
 import exists from './exists.js';
 
-export default async function (path) {
+export default async function directoryExists(path) {
   const stats = await exists(path);
 
   if (stats) {
