@@ -1,9 +1,8 @@
 import {assert} from 'chai';
 import any from '@travi/any';
-import sinon from 'sinon';
 
 import {questionNames} from './question-names.js';
-import * as visibilityModule from './visibility-options.js';
+import {visibilityOptions} from './visibility-options.js';
 import {
   copyrightInformationShouldBeRequested,
   licenseChoicesShouldBePresented,
@@ -12,27 +11,12 @@ import {
 } from './predicates.js';
 
 suite('prompt conditionals', () => {
-  let sandbox, visibilityOptionsStub;
-
-  setup(() => {
-    sandbox = sinon.createSandbox();
-    visibilityOptionsStub = sandbox.stub(visibilityModule, 'visibilityOptions');
-  });
-
-  teardown(() => sandbox.restore());
-
   suite('visibility validation', () => {
     test('that every provided option is considered a valid response', () => {
-      const stubbedVisibilityOptions = any.listOf(any.string);
-      visibilityOptionsStub.get(() => stubbedVisibilityOptions);
-
-      stubbedVisibilityOptions.forEach(option => assert.isTrue(visibilityIsValid(option)));
+      Object.keys(visibilityOptions).forEach(option => assert.isTrue(visibilityIsValid(option)));
     });
 
     test('that an arbitrary value is considered invalid', () => {
-      const stubbedVisibilityOptions = any.listOf(any.string);
-      visibilityOptionsStub.get(() => stubbedVisibilityOptions);
-
       assert.isFalse(visibilityIsValid('not-a-visibility-option'));
     });
   });

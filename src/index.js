@@ -14,4 +14,5 @@ export {
 export {default as composeDependenciesInto} from './dependency-composer.js';
 
 export {fileTypes} from './file-types.js';
+export {visibilityOptions} from './prompts/visibility-options.js';
 export const optionsSchemas = schemas;

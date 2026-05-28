@@ -9,7 +9,8 @@ import {
   visibilityIsValid,
   unlicensedConfirmationShouldBePresented
 } from './predicates.js';
-import {visibilityChoices} from './visibility-options.js';
+import {visibilityOptions} from './visibility-options.js';
+import mapOptionsToChoices from './options-to-choices-mapper.js';
 
 function includeLicenseQuestions(copyrightHolder) {
   return [
@@ -56,7 +57,7 @@ export function questionsForBaseDetails(decisions, projectRoot, copyrightHolder)
       message: 'What is the contribution model for this project?',
       type: 'list',
       validate: visibilityIsValid,
-      choices: visibilityChoices
+      choices: mapOptionsToChoices(visibilityOptions)
     },
     ...includeLicenseQuestions(copyrightHolder)
   ];

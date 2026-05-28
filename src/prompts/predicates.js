@@ -2,7 +2,7 @@ import {questionNames} from './question-names.js';
 import {visibilityOptions} from './visibility-options.js';
 
 export function visibilityIsValid(visibility) {
-  return visibilityOptions.includes(visibility);
+  return Object.keys(visibilityOptions).includes(visibility);
 }
 
 export function unlicensedConfirmationShouldBePresented(answers) {

@@ -1,18 +1,11 @@
 import {assert} from 'chai';
 
-import {visibilityChoices, visibilityOptions} from './visibility-options.js';
+import {visibilityOptions} from './visibility-options.js';
 
 suite('visibility options', () => {
-  test('that user-facing choices map to expected saved values', () => {
-    assert.deepEqual(visibilityChoices, [
-      {name: 'Open Source', value: 'OSS'},
-      {name: 'Inner Source', value: 'ISS'},
-      {name: 'Closed Source', value: 'CS'}
-    ]);
-  });
-
-  test('that visibility options are derived from the defined choices', () => {
-    assert.deepEqual(visibilityOptions, ['OSS', 'ISS', 'CS']);
-    assert.deepEqual(visibilityOptions, visibilityChoices.map(({value}) => value));
+  test('that the abbreviations map to descriptions', () => {
+    assert.equal(visibilityOptions.OSS, 'Open Source');
+    assert.equal(visibilityOptions.ISS, 'Inner Source');
+    assert.equal(visibilityOptions.CS, 'Closed Source');
   });
 });
