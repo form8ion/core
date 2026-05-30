@@ -90,7 +90,7 @@ suite('form8ion plugin schema', () => {
   test('that the `test` function must take an options object', () => {
     assert.throws(
       () => validateOptions(pluginSchema, {scaffold: options => options, test: () => undefined}),
-      '"test" must have an arity of 1'
+      '"test" must have an arity greater or equal to 1'
     );
   });
 
