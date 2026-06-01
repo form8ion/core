@@ -1,6 +1,4 @@
 import {basename} from 'path';
-/* eslint-disable-next-line import/extensions -- needed for the esm bundle */
-import spdxLicenseList from 'spdx-license-list/simple.js';
 
 import {questionNames} from './question-names.js';
 import {
@@ -11,6 +9,7 @@ import {
 } from './predicates.js';
 import {visibilityOptions} from './visibility-options.js';
 import mapOptionsToChoices from './options-to-choices-mapper.js';
+import buildLicenseChoices from './license-choices-builder.js';
 
 function includeLicenseQuestions(copyrightHolder) {
   return [
@@ -26,7 +25,7 @@ function includeLicenseQuestions(copyrightHolder) {
       message: 'How should this this project be licensed (https://choosealicense.com/)?',
       type: 'list',
       when: licenseChoicesShouldBePresented,
-      choices: Array.from(spdxLicenseList),
+      choices: buildLicenseChoices,
       default: 'MIT'
     },
     {

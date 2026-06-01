@@ -1,5 +1,4 @@
 import path from 'path';
-import spdxLicenseList from 'spdx-license-list/simple';
 
 import any from '@travi/any';
 import {assert} from 'chai';
@@ -7,9 +6,10 @@ import sinon from 'sinon';
 
 import {questionNames as coreQuestionNames} from './question-names.js';
 import * as predicates from './predicates.js';
-import {questionsForBaseDetails} from './questions.js';
 import {visibilityOptions} from './visibility-options.js';
 import * as optionsToChoicesMapper from './options-to-choices-mapper.js';
+import buildLicenseChoices from './license-choices-builder.js';
+import {questionsForBaseDetails} from './questions.js';
 
 suite('project scaffolder prompts', () => {
   let sandbox;
@@ -61,7 +61,7 @@ suite('project scaffolder prompts', () => {
             message: 'How should this this project be licensed (https://choosealicense.com/)?',
             type: 'list',
             when: predicates.licenseChoicesShouldBePresented,
-            choices: Array.from(spdxLicenseList),
+            choices: buildLicenseChoices,
             default: 'MIT'
           },
           {
@@ -113,7 +113,7 @@ suite('project scaffolder prompts', () => {
             message: 'How should this this project be licensed (https://choosealicense.com/)?',
             type: 'list',
             when: predicates.licenseChoicesShouldBePresented,
-            choices: Array.from(spdxLicenseList),
+            choices: buildLicenseChoices,
             default: 'MIT'
           },
           {
