@@ -40,13 +40,6 @@ suite('prompt conditionals', () => {
       assert.isTrue(licenseChoicesShouldBePresented({[questionNames.VISIBILITY]: 'OSS'}));
     });
 
-    test('that the license choices are shown for a non-open project that is not unlicensed', () => {
-      assert.isTrue(licenseChoicesShouldBePresented({
-        [questionNames.VISIBILITY]: 'CS',
-        [questionNames.UNLICENSED]: false
-      }));
-    });
-
     test('that the license choices are not shown for a non-open project that is unlicensed', () => {
       assert.isFalse(licenseChoicesShouldBePresented({
         [questionNames.VISIBILITY]: 'ISS',

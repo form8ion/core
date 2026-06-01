@@ -10,7 +10,7 @@ export function unlicensedConfirmationShouldBePresented(answers) {
 }
 
 export function licenseChoicesShouldBePresented(answers) {
-  return 'OSS' === answers[questionNames.VISIBILITY] || !answers[questionNames.UNLICENSED];
+  return 'OSS' === answers[questionNames.VISIBILITY];
 }
 
 export function copyrightInformationShouldBeRequested(answers) {
