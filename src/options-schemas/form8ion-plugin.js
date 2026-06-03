@@ -2,7 +2,7 @@ import joi from 'joi';
 
 export default joi.object().required()
   .keys({
-    scaffold: joi.func().minArity(1).required(),
+    scaffold: joi.func().minArity(1),
     lift: joi.func().minArity(1),
     test: joi.func().minArity(1)
   })

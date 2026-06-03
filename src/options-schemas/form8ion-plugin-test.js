@@ -9,10 +9,6 @@ suite('form8ion plugin schema', () => {
     assert.throws(() => validateOptions(pluginSchema), '"value" is required');
   });
 
-  test('that scaffold is required', () => {
-    assert.throws(() => validateOptions(pluginSchema, {}), '"scaffold" is required');
-  });
-
   test('that scaffold is required to be a function', () => {
     assert.throws(() => validateOptions(pluginSchema, {scaffold: any.word()}), '"scaffold" must be of type function');
   });
