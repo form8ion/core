@@ -17,7 +17,7 @@ describe('config-file', () => {
   describe('write', () => {
     it('should throw an error for an unsupported file type', async () => {
       expect(() => write({format: any.word()}))
-        .toThrowError('The requested format for the config file is unsupported');
+        .toThrow('The requested format for the config file is unsupported');
     });
 
     it('should write to a json file when the JSON file type is chosen', async () => {
