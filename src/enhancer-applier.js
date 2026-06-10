@@ -22,16 +22,16 @@ export default async function applyEnhancer({results = {}, enhancers = {}, optio
   logger.info('Applying Enhancers');
 
   return Object.entries(enhancers)
-    .reduce(async (acc, [pluginName, {test, lift}]) => {
-      if (await pluginAppliesToProject(pluginName, test, lift, options, dependencies)) {
-        const previousResults = await acc;
+    .reduce(async (accPromise, [pluginName, {test, lift}]) => {
+      const previousResults = await accPromise;
 
+      if (await pluginAppliesToProject(pluginName, test, lift, options, dependencies)) {
         return deepmerge(
           previousResults,
           await lift({results: previousResults, ...options}, dependencies)
         );
       }
 
-      return acc;
-    }, results);
+      return previousResults;
+    }, Promise.resolve(results));
 }
