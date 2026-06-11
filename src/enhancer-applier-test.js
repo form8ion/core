@@ -18,7 +18,7 @@ suite('enhancers', () => {
     const liftResults = {nextSteps: liftNextSteps};
     const anotherLiftResults = any.simpleObject();
     const options = any.simpleObject();
-    test.withArgs(options).resolves(true);
+    test.withArgs(options, dependencies).resolves(true);
     lift.withArgs({results, ...options}, dependencies).resolves(liftResults);
     anotherLift
       .withArgs({results: {...results, ...liftResults}, ...options}, dependencies)
@@ -49,7 +49,7 @@ suite('enhancers', () => {
     const liftResults = {nextSteps: liftNextSteps};
     const anotherLiftResults = any.simpleObject();
     const options = any.simpleObject();
-    test.withArgs(options).resolves(true);
+    test.withArgs(options, dependencies).resolves(true);
     lift.withArgs({results, ...options}, dependencies).resolves(liftResults);
     anotherLift
       .withArgs({results: {...results, ...liftResults}, ...options}, dependencies)
@@ -80,7 +80,7 @@ suite('enhancers', () => {
     const liftResults = {nextSteps: liftNextSteps};
     const anotherLiftResults = any.simpleObject();
     const options = any.simpleObject();
-    test.withArgs(options).resolves(true);
+    test.withArgs(options, dependencies).resolves(true);
     lift.withArgs({results, ...options}, dependencies).resolves(liftResults);
     anotherLift
       .withArgs({results: {...results, ...liftResults}, ...options}, dependencies)
@@ -111,7 +111,7 @@ suite('enhancers', () => {
     const liftResults = {nextSteps: liftNextSteps};
     const anotherLiftResults = any.simpleObject();
     const options = any.simpleObject();
-    test.withArgs(options).resolves(true);
+    test.withArgs(options, dependencies).resolves(true);
     lift.withArgs({results, ...options}, dependencies).resolves(liftResults);
     anotherLift
       .withArgs({results: {...results, ...liftResults}, ...options}, dependencies)

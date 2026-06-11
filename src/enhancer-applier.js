@@ -1,6 +1,8 @@
 import deepmerge from 'deepmerge';
 
-async function pluginAppliesToProject(pluginName, test, lift, options, {logger}) {
+async function pluginAppliesToProject(pluginName, test, lift, options, dependencies) {
+  const {logger} = dependencies;
+
   if (!test) {
     logger.warn(`Plugin ${pluginName} does not provide a 'test' predicate`);
 
@@ -13,7 +15,7 @@ async function pluginAppliesToProject(pluginName, test, lift, options, {logger})
     return false;
   }
 
-  return test(options);
+  return test(options, dependencies);
 }
 
 export default async function applyEnhancer({results = {}, enhancers = {}, options, dependencies}) {
